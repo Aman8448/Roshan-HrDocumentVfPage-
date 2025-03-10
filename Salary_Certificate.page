@@ -1,0 +1,152 @@
+<apex:page standardController="Applicant__c" extensions="teamInvoicePdfController" >
+    <style>
+        body {
+            font-family: 'Salesforce Sans', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .document-container {
+            
+            width: 90%;
+            margin: 20px auto;
+            padding: 24px;
+            background-color: #fff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 18px;
+        }
+
+        td, th {
+            padding: 8px;
+            text-align: left;
+        }
+
+        .text {
+            font-family: "Arial Unicode MS";
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .header {
+            text-align: right;
+            padding-bottom: 16px;
+        }
+
+        .header img {
+            width: 100px;
+            height: 50px;
+        }
+        
+        .footer {
+            text-align: left;
+            padding-bottom: 16px;
+        }
+        .footer img{
+            width: 80%;
+            height: 50%;
+        
+        }
+        .section_width {
+            width: 40%;
+        }
+        .justified {
+    text-align: justify;
+             }
+    </style>
+
+    
+    <div class="document-container">
+       
+        <!-- Header Section -->
+        <div class="header">
+            
+            <img src="data:{!docObj.ContentType};base64,{!footerImage}"  width="100" height="50" />
+           <!-- <apex:image url="{!$Resource.Servlet}" width="100" height="50"/>-->
+        </div>
+
+        <!-- Content Section -->
+        <table>
+            <tr>
+                <td>To:</td>
+                <td>To Whom it may concern</td>
+                <td class="text">من يهمه الأمر</td>
+                <td class="text">:إلى</td>
+            </tr>
+            <tr>
+                <td>Date: </td>
+                <td>{!currentDate}</td>
+                <td class="text">{!currentDate}</td>
+                <td class="text">:التاريخ</td>
+            </tr>
+            <tr>
+                <td>Subject:</td>
+                <td>Salary certificate</td>
+                <td class="text">خطاب تعريف بالراتب</td>
+                <td class="text">:الموضوع</td>
+            </tr>
+        </table>
+
+        <!-- Main Body Section -->
+        <table>
+            <tr>
+                <td class="section_width justified ">
+                    This is to certify that {!teamObj.Name} a {!teamObj.Nationality_Iqama__c} national, holding Iqama/National ID number {!teamObj.ID_Number__c}, has been employed by Zeyad Sameer Khoshaim Law Firm, CR number 1010342657 since {!jobEffectiveDate} and continues to the date of this letter, the current job title is {!teamObj.Job_Title__c}, and the current monthly compensation is {!teamObj.Full_Package__c} allocated as follows:
+                </td>
+                <td class="text section_width ">
+                     نود ابلاغكم نحن شركة زياد سمير خشيم للمحاماة والاستشارات القانونية، سجل تجاري رقم 1010342657 أن/ {!teamObj.Arabic_Name__c}، {!teamObj.Nationality_Arabic__c}  الجنسية، هوية وطنية/إقامة رقم {!teamObj.ID_Number__c}، تحت المسمى الوظيفي {!teamObj.Job_Title_Arabic__c} ، حالياً على رأس العمل، بدأً من تاريخ {!jobEffectiveDate}وحتى تاريخ هذا الخطاب، وإجمالي: الراتب الحالي {!teamObj.Full_Package__c}  ريال سعودي مقسمة كالتالي
+                  </td>
+            </tr>
+        </table>
+
+        <!-- Salary Breakdown -->
+        <table>
+            <tr>
+                <td>Basic salary: <apex:outputText value="{!teamObj.Basic_salary__c}" style="currency"/></td>
+                <td class="text"> راتب أساسي: <apex:outputText value="{!teamObj.Basic_salary__c}" style="currency"/> سعودي</td>
+            </tr>
+            <tr>
+                <td>Accommodation allowance: <apex:outputText value="{!teamObj.Accomodation__c}" style="currency"/></td>
+                <td class="text"> بدل سكن : <apex:outputText value="{!teamObj.Accomodation__c}" style="currency"/> سعودي</td>
+            </tr>
+            <tr>
+                <td>Transportation allowance: <apex:outputText value="{!teamObj.Transportation__c}" style="currency"/></td>
+                <td class="text">  بدل انتقالات:<apex:outputText value="{!teamObj.Transportation__c}" style="currency"/>  سعودي</td>
+            </tr>
+        </table>
+
+        <!-- Closing Section -->
+        <table>
+            <tr>
+                <td class="section_width justified ">
+                    This certificate is being issued upon the employee request and without any liability on or guarantee from Zeyad Sameer Khoshaim Law Firm.
+                </td>
+                <td class="text section_width ">
+                    وعليه فقد أعطي هذا الخطاب بناءً على طلب الموظف دون أدنى مسئولية على الشركة أو ضمان.
+                </td>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <td>Thank you.</td>
+                <td class="text">وتفضلوا بقبول تحياتنا </td>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <td>Zeyad Sameer Khoshaim Law Firm</td>
+                <td class="text">شركة زياد سمير خشيم للمحاماة والاستشارات القانونية</td>
+            </tr>
+        </table>
+        
+        
+    </div>
+    
+     
+</apex:page>

@@ -1,0 +1,80 @@
+<apex:page standardController="Applicant__c" extensions="teamInvoicePdfController" 
+        contentType="text/html;charset=utf-8" lightningStylesheets="true" >
+    
+ <h2>Select a Link to Navigate</h2>
+    
+    <!-- Dropdown list -->
+   
+    <apex:form id="SelectFrm">
+        
+        <apex:selectList size="1" value="{!selectedOption}"  onchange="handlePageChange();">
+            <apex:selectOption itemValue="Select An Option" itemLabel="Select An Option" />
+           <apex:selectOption itemValue="Page1" itemLabel="Page 1" />
+            <apex:selectOption itemValue="Page2" itemLabel="Page 2" />
+            <apex:selectOption itemValue="Page3" itemLabel="Page 3" />
+        </apex:selectList>
+        
+         <apex:commandButton id="cancelButton" value="Back"  style="display:inline;" action="{!backButtonMethod}"/>
+        <apex:commandButton id="saveAttachButton"
+                                    value="Save" action="{!attachmentMethod}"/>
+        <!--
+        <apex:selectList value="{!selectedOption}" size="1" action="{!renderPage}">
+            <apex:selectOption itemValue="Select" itemLabel="Select a Page"/>
+            <apex:selectOption itemValue="Page1" itemLabel="Page 1"/>
+            <apex:selectOption itemValue="Page2" itemLabel="Page 2"/>
+            <apex:selectOption itemValue="Page3" itemLabel="Page 3"/>
+        </apex:selectList>
+   -->
+
+        <!--
+        <apex:outputPanel rendered="{!selectedOption == 'Page1'}">
+            <apex:iframe id="iframe1" src="https://ka--fullcopy--c.sandbox.vf.force.com/apex/Salary_Certificate?Id={!recordId}&buttonType={!buttonType}" scrolling="true"/>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!selectedOption == 'Page2'}">
+            <apex:iframe id="iframe2" src="https://ka--fullcopy--c.sandbox.vf.force.com/apex/Salary_Certificate?Id={!recordId}&buttonType={!buttonType}" scrolling="true"/>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!selectedOption == 'Page3'}">
+            <apex:iframe id="iframe3" src="https://ka--fullcopy--c.sandbox.vf.force.com/apex/Salary_Certificate?Id={!recordId}&buttonType={!buttonType}" scrolling="true"/>
+        </apex:outputPanel>
+-->
+        
+        </apex:form>
+
+     <div id="iframeContainer">
+        <!-- The iframe will be injected here -->
+        <iframe id="iframe1" src="" width="100%" height="500px" style="display:none;"></iframe>
+    </div>
+    
+     
+
+  <script type="text/javascript">
+        // JavaScript to handle page change
+    
+        function handlePageChange() {
+            var selectedValue = document.querySelector('select').value;
+            
+             var iframe = document.getElementById('iframe1');
+              var cancelButton = document.getElementById('showButton');
+             
+            // Clear iframe src and hide it by default
+            iframe.src = '';
+            iframe.style.display = 'none';
+            // cancelButton.style.display = 'none';
+            
+            if (selectedValue === "Page1") {
+                // Redirect to Page 1
+                  iframe.src =  'https://ka--fullcopy--c.sandbox.vf.force.com/apex/Salary_Certificate?Id={!recordId}&buttonType={!buttonType}';  
+                //cancelButton.style.display = 'inline';
+                 iframe.style.display = 'block'; 
+            } else if (selectedValue === "Page2") {
+                // Redirect to Page 2
+                 iframe.src =  'https://ka--fullcopy--c.sandbox.vf.force.com/apex/Salary_Certificate?Id={!recordId}&buttonType={!buttonType}';  
+                 iframe.style.display = 'block'; 
+            } else if (selectedValue === "Page3") {
+                // Redirect to Page 3
+                iframe.src =  'https://ka--fullcopy--c.sandbox.vf.force.com/apex/Salary_Certificate?Id={!recordId}&buttonType={!buttonType}';  
+                iframe.style.display = 'block'; 
+            }
+        }
+    </script>
+</apex:page>
